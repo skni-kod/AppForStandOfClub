@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
 
 import 'czlonkowie.dart';
 import 'sekcje_i_projekty.dart';
 import 'osiagniecia.dart';
 import 'galeria.dart';
+import 'colors.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarBrightness: Brightness.light,
+  ));
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -15,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.yellow,
       ),
       home: MyHomePage(),
       debugShowCheckedModeBanner: false,
@@ -37,14 +46,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(28, 28, 28, 1),
+      backgroundColor: backgroundBlack,
       body: Stack(
         children: <Widget>[
           Rectangle(),
           Column(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.fromLTRB(20, 40, 20, 30),
+                padding: EdgeInsets.fromLTRB(30, 40, 30, 30),
                 child: Image(
                   image: AssetImage("assets/images/skniKOD.png"),
               )
@@ -56,28 +65,28 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: EdgeInsets.all(10.0),
                       children: <Widget>[
                         Button(
-                          Color.fromRGBO(121, 217, 46, 1),
+                          green,
                           Color.fromRGBO(87, 185, 11, 1),
                           Icon(Icons.apps),
                           "Sekcje i projekty",
                           SekcjeIProjektyPage()
                         ),
                         Button(
-                          Color.fromRGBO(1, 121, 233, 1),
+                          blue,
                           Color.fromRGBO(0, 92, 177, 1),
                           Icon(Icons.group),
                             "Członkowie",
                           CzlonkowiePage()
                         ),
                         Button(
-                          Color.fromRGBO(215, 56, 34, 1),
+                          red,
                           Color.fromRGBO(178, 39, 20, 1),
                           Icon(Icons.grade),
                             "Osiągnięcia",
                           OsiagnieciaPage()
                         ),
                         Button(
-                          Color.fromRGBO(194, 38, 169, 1),
+                          magenta,
                           Color.fromRGBO(169, 22, 145, 1),
                           Icon(Icons.image),
                             "Galeria",
@@ -94,8 +103,8 @@ class _MyHomePageState extends State<MyHomePage> {
 class Button extends StatelessWidget
 {
   double roundedCorners = 30;
-  Color color = new Color.fromRGBO(0, 0, 0, 0);
-  Color underColor = new Color.fromRGBO(0, 0, 0, 0);
+  Color color = grey;
+  Color underColor = grey;
   Icon icon = new Icon(Icons.apps);
   String opis = "";
 
@@ -105,8 +114,6 @@ class Button extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width*0.5,
-      height: MediaQuery.of(context).size.width*0.5,
       child: Padding(
           padding: EdgeInsets.all(5),
           child: GestureDetector(
@@ -119,7 +126,7 @@ class Button extends StatelessWidget
             child: Stack(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
+                  padding: EdgeInsets.fromLTRB(5, 15, 15, 5),
                   child: Center(
                     child: ClipRRect(
                         borderRadius: new BorderRadius.circular(roundedCorners),
@@ -128,7 +135,7 @@ class Button extends StatelessWidget
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                  padding: EdgeInsets.fromLTRB(15, 5, 5, 15),
                   child: Center(
                       child: Stack(
                         children: <Widget>[
@@ -161,7 +168,7 @@ class Button extends StatelessWidget
   }
 }
 class Square extends StatelessWidget{
-  Color color = new Color(0xFF0099FF);
+  Color color = grey;
   Square(this.color);
   @override
   Widget build(BuildContext context) {
@@ -204,7 +211,7 @@ class RectanglePainter extends CustomPainter {
     var path = Path();
     var paint = Paint();
 
-    paint.color = Color.fromRGBO(54, 54, 54, 1);
+    paint.color = grey;
     paint.style = PaintingStyle.fill;
 
     path.moveTo(size.width, size.height * 0.3);
