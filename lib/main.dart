@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   image: AssetImage("assets/images/skniKOD.png"),
               )
               ),
-              new Flexible(
+              Flexible(
                   child: GridView.count(
                       physics: new NeverScrollableScrollPhysics(),
                       crossAxisCount: 2,
