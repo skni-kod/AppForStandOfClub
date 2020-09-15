@@ -11,7 +11,7 @@ import 'colors.dart';
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
-    statusBarBrightness: Brightness.light,
+    statusBarBrightness: Brightness.light
   ));
 
   runApp(MyApp());
@@ -22,9 +22,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'AppForStandOfClub',
       theme: ThemeData(
         primarySwatch: Colors.yellow,
+        visualDensity: VisualDensity.adaptivePlatformDensity
       ),
       home: MyHomePage(),
       debugShowCheckedModeBanner: false,

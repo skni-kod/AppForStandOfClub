@@ -1,4 +1,4 @@
-class Member {
+class MemberGithub {
   final String login;
   final String avatar_url;
   final String url;
@@ -9,10 +9,10 @@ class Member {
   final String email;
   final String bio;
 
-  Member({this.login, this.avatar_url, this.url, this.name, this.company, this.blog, this.location, this.email, this.bio});
+  MemberGithub({this.login, this.avatar_url, this.url, this.name, this.company, this.blog, this.location, this.email, this.bio});
 
-  factory Member.fromJson(Map<String, dynamic> json){
-    return Member(
+  factory MemberGithub.fromJson(Map<String, dynamic> json){
+    return MemberGithub(
       login: json['login'], //? json['login'] : null,
       avatar_url: json['avatar_url'], //? json['avatar_url'] : null,
       url: json['url'], //? json['url'] : null,

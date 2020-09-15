@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'colors.dart';
-import 'members.dart';
+import 'czlonek.dart';
 
 class CzlonkowieSzczegolyPage extends StatefulWidget {
   CzlonkowieSzczegolyPage({Key key, this.title, this.url}) : super(key: key);
@@ -20,11 +20,11 @@ class _CzlonkowiePageState extends State<CzlonkowieSzczegolyPage>{
   String url = "";
   _CzlonkowiePageState(this.url);
 
-  Future<Member> fetchMembers() async {
+  Future<MemberGithub> fetchMembers() async {
     final response = await http.get(url);
 
     if(response.statusCode == 200){
-      return Member.fromJson(jsonDecode(response.body));
+      return MemberGithub.fromJson(jsonDecode(response.body));
     } else{
       throw Exception("Nie udało się pobrać");
     }
@@ -54,7 +54,7 @@ class _CzlonkowiePageState extends State<CzlonkowieSzczegolyPage>{
                 ],
               ),
               Flexible(
-                child: FutureBuilder<Member>(
+                child: FutureBuilder<MemberGithub>(
                   future: fetchMembers(),
                   builder: (context, snapshot) {
                     if(snapshot.hasData){
@@ -102,23 +102,6 @@ class _CzlonkowiePageState extends State<CzlonkowieSzczegolyPage>{
                           )
                         ]
                       );
-//                      return
-//                        GridView.count(
-//                            padding: EdgeInsets.all(0),
-//                            crossAxisCount: 3,
-//                            children: snapshot.data.((Member member) {
-//                              return Column(
-//                                mainAxisAlignment: MainAxisAlignment.center,
-//                                children: <Widget>[
-//
-//                                    ),
-//                                  ),
-//                                  Text(member.login, style: GoogleFonts.alegreyaSansSC(
-//                                      fontSize: 15,
-//                                      textStyle: TextStyle(color: Colors.white)))
-//                                ],
-//                              );
-//                            }));
                     } else if (snapshot.hasError){
                       return Text("${snapshot.error}");
                     }
@@ -152,7 +135,7 @@ class Element extends StatelessWidget
       children: <Widget>[
         Padding(
           padding: EdgeInsets.fromLTRB(0, 4, 5, 7),
-          child: Icon(icon.icon, color: color, size: 30,),),
+          child: Icon(icon.icon, color: color, size: 30)),
         Expanded(
           child: Padding(
             padding: EdgeInsets.fromLTRB(3, 7, 0, 7),
