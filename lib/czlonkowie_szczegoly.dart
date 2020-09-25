@@ -8,27 +8,17 @@ import 'colors.dart';
 import 'czlonek.dart';
 
 class CzlonkowieSzczegolyPage extends StatefulWidget {
-  CzlonkowieSzczegolyPage({Key key, this.title, this.url}) : super(key: key);
-  String url = "";
+  CzlonkowieSzczegolyPage({Key key, this.title, this.member}) : super(key: key);
+  MemberApi member;
   final String title;
 
   @override
-  _CzlonkowiePageState createState() => _CzlonkowiePageState(url);
+  _CzlonkowiePageState createState() => _CzlonkowiePageState(member);
 }
 
 class _CzlonkowiePageState extends State<CzlonkowieSzczegolyPage>{
-  String url = "";
-  _CzlonkowiePageState(this.url);
-
-  Future<MemberGithub> fetchMembers() async {
-    final response = await http.get(url);
-
-    if(response.statusCode == 200){
-      return MemberGithub.fromJson(jsonDecode(response.body));
-    } else{
-      throw Exception("Nie udało się pobrać");
-    }
-  }
+  MemberApi member;
+  _CzlonkowiePageState(this.member);
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +44,7 @@ class _CzlonkowiePageState extends State<CzlonkowieSzczegolyPage>{
                 ],
               ),
               Flexible(
-                child: FutureBuilder<MemberGithub>(
-                  future: fetchMembers(),
-                  builder: (context, snapshot) {
-                    if(snapshot.hasData){
-                      return Column(
+                child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Padding(
@@ -72,18 +58,18 @@ class _CzlonkowiePageState extends State<CzlonkowieSzczegolyPage>{
                                   color: Color.fromRGBO(116, 116, 116, 1),
                                   width: 3),
                                 image: DecorationImage(
-                                    image: NetworkImage(snapshot.data.avatar_url),
+                                    image: NetworkImage(member.avatar),
                                     fit: BoxFit.cover,)
                               ),
                             )
                           ),
-                          Text(snapshot.data.name, style: GoogleFonts.alegreyaSansSC(
+                          Text('${member.user.first_name} ${member.user.last_name}', style: GoogleFonts.alegreyaSansSC(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                             textStyle: TextStyle(color: Colors.white)
                           ),
                           ),
-                          Text(snapshot.data.login, style: GoogleFonts.alegreyaSans(
+                          Text(member.user.username, style: GoogleFonts.alegreyaSans(
                               fontSize: 20,
                               textStyle: TextStyle(color: Colors.white)
                           ),
@@ -92,26 +78,18 @@ class _CzlonkowiePageState extends State<CzlonkowieSzczegolyPage>{
                             padding: EdgeInsets.all(20),
                             child: Column(
                               children: <Widget>[
-                                Element(Icon(Icons.mail),magenta,snapshot.data.email == null ? 'Brak danych' : snapshot.data.email),
-                                Element(Icon(Icons.contacts),green,snapshot.data.bio == null ? 'Brak danych' : snapshot.data.bio),
-                                Element(Icon(Icons.location_on),red,snapshot.data.location == null ? 'Brak danych' : snapshot.data.location),
-                                Element(Icon(Icons.people),blue,snapshot.data.company == null ? 'Brak danych' : snapshot.data.company),
-                                Element(Icon(Icons.language),yellow,snapshot.data.blog == "" ? 'Brak danych' : snapshot.data.blog),
+                                Element(Icon(Icons.mail),magenta, member.user.email == null ? 'Brak danych' : member.user.email),
+                                Element(Icon(Icons.contacts),green, member.description == null ? 'Brak danych' : member.description),
+//                                Element(Icon(Icons.location_on),red,snapshot.data.location == null ? 'Brak danych' : snapshot.data.location),
+//                                Element(Icon(Icons.people),blue,snapshot.data.company == null ? 'Brak danych' : snapshot.data.company),
+//                                Element(Icon(Icons.language),yellow,snapshot.data.blog == "" ? 'Brak danych' : snapshot.data.blog),
                               ],
                             ),
                           )
                         ]
-                      );
-                    } else if (snapshot.hasError){
-                      return Text("${snapshot.error}");
-                    }
+                      )
 
-                    return Center(
-                      child: CircularProgressIndicator(
-                      ),
-                    );
-                  },
-                ),
+
               )],
           )
         ],

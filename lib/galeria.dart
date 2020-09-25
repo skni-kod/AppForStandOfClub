@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:google_fonts/google_fonts.dart';
+import 'dart:async';
+import 'dart:convert';
 
 import 'colors.dart';
 
@@ -11,17 +15,37 @@ class GaleriaPage extends StatefulWidget {
   _GaleriaPage createState() => _GaleriaPage();
 }
 
-class _GaleriaPage extends State<GaleriaPage>{
+class GalleryImage {
+  final int id;
+  final int article;
+  final String image;
+  final String thumbnail;
 
-  void main()
-  {
-    print(1);
+  GalleryImage({this.id, this.article, this.image, this.thumbnail});
+
+  factory GalleryImage.fromJson(Map<String, dynamic> json){
+    return GalleryImage(
+      id: json['id'], //? json['login'] : null,
+      article: json['article'], //? json['avatar_url'] : null,
+      image: json['image'], //? json['url'] : null,
+      thumbnail: json['thumbnail'] //json['avatar'], ? json['name'] : null,
+    );
   }
+}
+Future<List<GalleryImage>> fetchImages() async {
+  final response = await http.get("http://10.0.2.2:8000/api/gallery/");
 
-  List obrazy = [
-    "https://i1.jbzd.com.pl/contents/2020/09/normal/WZ08NMcePTJwIyAHbxAc45wGcVbvV0pB.jpg",
-    "https://i1.jbzd.com.pl/contents/2020/09/normal/XihDp1nvmSHsBjbpE1FzDSW3zW5GWspO.jpg"
-  ];
+  if(response.statusCode == 200){
+    var imageObjJson = json.decode(utf8.decode(response.bodyBytes)) as List;
+    List<GalleryImage> imageList= imageObjJson.map((imageJson) => GalleryImage.fromJson(imageJson)).toList();
+    return imageList;
+  } else{
+    throw Exception("Nie udało się pobrać");
+  }
+}
+
+class _GaleriaPage extends State<GaleriaPage>{
+  final Future<List<GalleryImage>> images = fetchImages();
   double width = 0.29;
 
   @override
@@ -48,81 +72,95 @@ class _GaleriaPage extends State<GaleriaPage>{
                 ],
               ),
               Flexible(
-                child: Padding(
-                  padding: EdgeInsets.all(7),
-                  child: ListView(
-                    padding: EdgeInsets.all(0),
-                    children: <Widget>[
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: obrazy.map((item) {
-                                var index = obrazy.indexOf(item);
-                                if(index%3 == 0) {
-                                  return ImageTile(
-                                      MediaQuery.of(context).size.width * width,
-                                      index%9 == 0 ? 1.51 : index%9 == 6 ? 1.32 : 1,
-                                      index%15 == 3 ? magenta :
-                                      index%15 == 6 ? blue :
-                                      index%15 == 9 ? green :
-                                      index%15 == 12 ? yellow :
-                                      red,
-                                      item
-                                  );
-                                }else{
-                                  return Container();
-                                }
-                              }).toList()
+                child: FutureBuilder(
+                    future: images,
+                    builder: (context, snapshot) {
 
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                              children: obrazy.map((item) {
-                                var index = obrazy.indexOf(item);
-                                if(index%3 == 2) {
-                                  return ImageTile(
-                                      MediaQuery.of(context).size.width * width,
-                                      index%9 == 2 ? 1 : index%9 == 5 ? 1.51 : 1.32,
-                                      index%15 == 2 ? green :
-                                      index%15 == 5 ? yellow :
-                                      index%15 == 8 ? red :
-                                      index%15 == 11 ? magenta :
-                                      blue,
-                                      item
-                                  );
-                                }else{
-                                  return Container();
-                                }
-                              }).toList()
-                          ),
-                          Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: obrazy.map((item) {
-                                var index = obrazy.indexOf(item);
-                                if(index%3 == 1) {
-                                  return ImageTile(
-                                      MediaQuery.of(context).size.width * width,
-                                      index%9 == 1 ? 1.32 : index%9 == 4 ? 1 : 1.51,
-                                      index%15 == 1 ? magenta :
-                                      index%15 == 4 ? blue :
-                                      index%15 == 7 ? green :
-                                      index%15 == 10 ? yellow :
-                                      red,
-                                      item
-                                  );
-                                }else{
-                                  return Container();
-                                }
-                              }).toList()
-                          )
-                        ],
-                      ),
-                    ],
-                  )
-                )
+                      if(snapshot.hasData) {
+                        List<GalleryImage> obrazy = snapshot.data;
+                        return Padding(
+                            padding: EdgeInsets.all(7),
+                            child: ListView(
+                              padding: EdgeInsets.all(0),
+                              children: <Widget>[
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: obrazy.map((item) {
+                                          var index = obrazy.indexOf(item);
+                                          if(index%3 == 0) {
+                                            return ImageTile(
+                                                MediaQuery.of(context).size.width * width,
+                                                index%9 == 0 ? 1.51 : index%9 == 6 ? 1.32 : 1,
+                                                index%15 == 3 ? magenta :
+                                                index%15 == 6 ? blue :
+                                                index%15 == 9 ? green :
+                                                index%15 == 12 ? yellow :
+                                                red,
+                                                item.image
+                                            );
+                                          }else{
+                                            return Container();
+                                          }
+                                        }).toList()
+
+                                    ),
+                                    Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: obrazy.map((item) {
+                                          var index = obrazy.indexOf(item);
+                                          if(index%3 == 2) {
+                                            return ImageTile(
+                                                MediaQuery.of(context).size.width * width,
+                                                index%9 == 2 ? 1 : index%9 == 5 ? 1.51 : 1.32,
+                                                index%15 == 2 ? green :
+                                                index%15 == 5 ? yellow :
+                                                index%15 == 8 ? red :
+                                                index%15 == 11 ? magenta :
+                                                blue,
+                                                item.image
+                                            );
+                                          }else{
+                                            return Container();
+                                          }
+                                        }).toList()
+                                    ),
+                                    Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: obrazy.map((item) {
+                                          var index = obrazy.indexOf(item);
+                                          if(index%3 == 1) {
+                                            return ImageTile(
+                                                MediaQuery.of(context).size.width * width,
+                                                index%9 == 1 ? 1.32 : index%9 == 4 ? 1 : 1.51,
+                                                index%15 == 1 ? magenta :
+                                                index%15 == 4 ? blue :
+                                                index%15 == 7 ? green :
+                                                index%15 == 10 ? yellow :
+                                                red,
+                                                item.image
+                                            );
+                                          }else{
+                                            return Container();
+                                          }
+                                        }).toList()
+                                    )
+                                  ],
+                                ),
+                              ],
+                            )
+                        );
+                      }
+                      else
+                        {
+                          return Center(
+                              child: CircularProgressIndicator()
+                          );
+                        }
+                    })
               )],
           )
         ],

@@ -25,3 +25,47 @@ class MemberGithub {
     );
   }
 }
+
+class MemberApi {
+  final int id;
+  final User user;
+  final String description;
+  final String avatar;
+  final List profile_links;
+
+  MemberApi({this.id, this.user, this.description, this.avatar, this.profile_links});
+
+  factory MemberApi.fromJson(Map<String, dynamic> json){
+    return MemberApi(
+        id: json['id'], //? json['login'] : null,
+        user: User.fromJson(json['user']), //? json['avatar_url'] : null,
+        description: json['description'], //? json['url'] : null,
+        avatar: json['avatar'] != null ? json['avatar'] : "https://avatars0.githubusercontent.com/u/32840726?v=4", //json['avatar'], ? json['name'] : null,
+        profile_links: json['profile_links'],// ? json['company'] : null,
+    );
+  }
+}
+
+class User{
+  final int id;
+  final String username;
+  final String email;
+  final List groups;
+  final int profile;
+  final String first_name;
+  final String last_name;
+
+  User({this.id, this.username, this.email, this.groups, this.profile, this.first_name, this.last_name});
+
+  factory User.fromJson(Map<String, dynamic> json){
+    return User(
+        id: json['id'], //? json['login'] : null,
+        username: json['username'], //? json['avatar_url'] : null,
+        email: json['email'], //? json['url'] : null,
+        groups: json['groups'],// ? json['name'] : null,
+        profile: json['profile'],// ? json['company'] : null,
+        first_name: json['first_name'],// ? json['blog'] : null,
+        last_name: json['last_name'],// ? json['location'] : null,
+    );
+  }
+}
