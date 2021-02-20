@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 class OsiagnieciaPage extends StatelessWidget{
 
+  //list of achievements (should be downloaded from Api)
   List osiagniecia = [
     {'nazwa': 'Wygrana jakaś asdas da sda sdassd ', 'data': '23.12.2019R', 'osoby': ['Osoba 1', 'Osoba 2', 'Osoba 3']},
     {'nazwa': 'Wygrana jakaś', 'data': '23.12.2019R', 'osoby': ['Osoba 1', 'Osoba 2', 'Osoba 3']},
@@ -31,12 +32,13 @@ class OsiagnieciaPage extends StatelessWidget{
       backgroundColor: Color.fromRGBO(28, 28, 28, 1),
       body: Stack(
         children: <Widget>[
-          Rectangle(),
+          Rectangle(), //background
           Column(
             children: [
               Row(
                 children: <Widget>[
                   GestureDetector(
+                    //back button
                     onTap: ()
                     {
                       Navigator.pop(context);
@@ -55,7 +57,7 @@ class OsiagnieciaPage extends StatelessWidget{
                     Padding(
                         padding: EdgeInsets.all(10),
                         child: Column(
-                          children: osiagniecia.map((osiagniecie) {
+                          children: osiagniecia.map((osiagniecie) { //create list of widgets from downloaded achievements
                             return Container(
                               padding: EdgeInsets.only(bottom: 5),
                               child: Row(
@@ -64,11 +66,12 @@ class OsiagnieciaPage extends StatelessWidget{
                                     flex: 8,
                                     child: Column(
                                       children: <Widget>[
+                                        //name of achievement
                                         Align(
                                           alignment: Alignment.centerLeft,
                                           child:  Text(osiagniecie['nazwa'],style: GoogleFonts.alegreyaSansSC(
                                             fontSize: 22,
-                                            textStyle: TextStyle(color:
+                                            textStyle: TextStyle(color: //specify a color of achievement
                                             osiagniecia.indexOf(osiagniecie)%5 == 0 ? magenta :
                                             osiagniecia.indexOf(osiagniecie)%5 == 1 ? green :
                                             osiagniecia.indexOf(osiagniecie)%5 == 2 ? red :
@@ -76,6 +79,7 @@ class OsiagnieciaPage extends StatelessWidget{
                                             fontWeight: FontWeight.bold,
                                           )),
                                         ),
+                                        //participants
                                         Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(osiagniecie['osoby'].toString().replaceAll('[', '').replaceAll(']', ''), style: GoogleFonts.alegreyaSansSC(
@@ -87,6 +91,7 @@ class OsiagnieciaPage extends StatelessWidget{
                                       ],
                                     ),
                                   ),
+                                  //date
                                   Expanded(
                                     flex: 2,
                                     child: Align(
@@ -100,9 +105,10 @@ class OsiagnieciaPage extends StatelessWidget{
                                   ),
                                 ],
                               ),
+                              //bottom border
                               decoration: BoxDecoration(
                                   border: Border(
-                                      bottom: BorderSide(width: 2, color:
+                                      bottom: BorderSide(width: 2, color: //specify color
                                       osiagniecia.indexOf(osiagniecie)%5 == 0 ? magenta :
                                       osiagniecia.indexOf(osiagniecie)%5 == 1 ? green :
                                       osiagniecia.indexOf(osiagniecie)%5 == 2 ? red :
@@ -123,6 +129,7 @@ class OsiagnieciaPage extends StatelessWidget{
   }
 }
 
+//background
 class Rectangle extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -133,6 +140,7 @@ class Rectangle extends StatelessWidget{
   }
 }
 
+//color background
 class RectanglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

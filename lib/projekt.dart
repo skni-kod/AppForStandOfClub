@@ -11,6 +11,7 @@ class Projekt {
 
   Projekt({this.id, this.title, this.text, this.creation_date, this.publication_date, this.repository_link, this.section});
 
+  //create Project object from JSON object
   factory Projekt.fromJson(Map<String, dynamic> json){
     return Projekt(
         id: json['id'], //? json['login'] : null,

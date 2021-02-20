@@ -53,18 +53,21 @@ class _MyHomePageState extends State<MyHomePage> {
           Rectangle(),
           Column(
             children: <Widget>[
+              //Logo
               Padding(
                 padding: EdgeInsets.fromLTRB(30, 40, 30, 30),
                 child: Image(
                   image: AssetImage("assets/images/skniKOD.png"),
               )
               ),
+              //Buttons
               Flexible(
                   child: GridView.count(
                       physics: new NeverScrollableScrollPhysics(),
                       crossAxisCount: 2,
                       padding: EdgeInsets.all(10.0),
                       children: <Widget>[
+                        //Sections and projects
                         Button(
                           green,
                           Color.fromRGBO(87, 185, 11, 1),
@@ -72,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           "Sekcje i projekty",
                           SekcjeIProjektyPage()
                         ),
+                        //Members
                         Button(
                           blue,
                           Color.fromRGBO(0, 92, 177, 1),
@@ -79,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             "Członkowie",
                           CzlonkowiePage()
                         ),
+                        //Achievements
                         Button(
                           red,
                           Color.fromRGBO(178, 39, 20, 1),
@@ -86,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             "Osiągnięcia",
                           OsiagnieciaPage()
                         ),
+                        //Gallery
                         Button(
                           magenta,
                           Color.fromRGBO(169, 22, 145, 1),
@@ -118,7 +124,7 @@ class Button extends StatelessWidget
       child: Padding(
           padding: EdgeInsets.all(5),
           child: GestureDetector(
-            onTap: ()
+            onTap: () //Navigate to specified view
             {
               Navigator.push(
                   context,
@@ -126,6 +132,7 @@ class Button extends StatelessWidget
             },
             child: Stack(
               children: <Widget>[
+                //Bottom color
                 Padding(
                   padding: EdgeInsets.fromLTRB(5, 15, 15, 5),
                   child: Center(
@@ -135,6 +142,7 @@ class Button extends StatelessWidget
                     ),
                   ),
                 ),
+                //Top color
                 Padding(
                   padding: EdgeInsets.fromLTRB(15, 5, 5, 15),
                   child: Center(
@@ -168,6 +176,8 @@ class Button extends StatelessWidget
     );
   }
 }
+
+//Background of button
 class Square extends StatelessWidget{
   Color color = grey;
   Square(this.color);
@@ -180,6 +190,7 @@ class Square extends StatelessWidget{
   }
 }
 
+//Paints background of button
 class SquarePainter extends CustomPainter {
   Color color = Colors.white;
   SquarePainter(this.color);
@@ -196,6 +207,7 @@ class SquarePainter extends CustomPainter {
   }
 }
 
+//Background of screen
 class Rectangle extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -206,6 +218,7 @@ class Rectangle extends StatelessWidget{
   }
 }
 
+//Paints background of screen
 class RectanglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

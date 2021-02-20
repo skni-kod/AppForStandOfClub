@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:async';
-import 'dart:convert';
 
 import 'colors.dart';
 import 'czlonek.dart';
@@ -26,12 +23,14 @@ class _CzlonkowiePageState extends State<CzlonkowieSzczegolyPage>{
       backgroundColor: backgroundBlack,
       body: Stack(
         children: <Widget>[
-          Rectangle(),
+          Rectangle(), //background
           Column(
             children: [
+              //back bar
               Row(
                 children: <Widget>[
                   GestureDetector(
+                    //back to member list
                     onTap: ()
                     {
                       Navigator.pop(context);
@@ -44,13 +43,14 @@ class _CzlonkowiePageState extends State<CzlonkowieSzczegolyPage>{
                 ],
               ),
               Flexible(
+                //user details
                 child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.all(10),
                             child:  Container(
-                            width: MediaQuery.of(context).size.width*0.4,
+                            width: MediaQuery.of(context).size.width*0.4, //width and height must be the same to widget looks like square
                             height: MediaQuery.of(context).size.width*0.4,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
@@ -58,27 +58,32 @@ class _CzlonkowiePageState extends State<CzlonkowieSzczegolyPage>{
                                   color: Color.fromRGBO(116, 116, 116, 1),
                                   width: 3),
                                 image: DecorationImage(
-                                    image: NetworkImage(member.avatar),
+                                    image: NetworkImage(member.avatar), //image from internet
                                     fit: BoxFit.cover,)
                               ),
                             )
                           ),
+                          //name and surname
                           Text('${member.user.first_name} ${member.user.last_name}', style: GoogleFonts.alegreyaSansSC(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                             textStyle: TextStyle(color: Colors.white)
                           ),
                           ),
+                          //nickname
                           Text(member.user.username, style: GoogleFonts.alegreyaSans(
                               fontSize: 20,
                               textStyle: TextStyle(color: Colors.white)
                           ),
                           ),
+                          //details
                           Padding(
                             padding: EdgeInsets.all(20),
                             child: Column(
                               children: <Widget>[
+                                //email
                                 Element(Icon(Icons.mail),magenta, member.user.email == null ? 'Brak danych' : member.user.email),
+                                //description
                                 Element(Icon(Icons.contacts),green, member.description == null ? 'Brak danych' : member.description),
 //                                Element(Icon(Icons.location_on),red,snapshot.data.location == null ? 'Brak danych' : snapshot.data.location),
 //                                Element(Icon(Icons.people),blue,snapshot.data.company == null ? 'Brak danych' : snapshot.data.company),
@@ -98,6 +103,7 @@ class _CzlonkowiePageState extends State<CzlonkowieSzczegolyPage>{
   }
 }
 
+//element od user description
 class Element extends StatelessWidget
 {
   Icon icon = new Icon(Icons.apps);
@@ -111,9 +117,11 @@ class Element extends StatelessWidget
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        //icon
         Padding(
           padding: EdgeInsets.fromLTRB(0, 4, 5, 7),
           child: Icon(icon.icon, color: color, size: 30)),
+        //info
         Expanded(
           child: Padding(
             padding: EdgeInsets.fromLTRB(3, 7, 0, 7),
@@ -131,6 +139,7 @@ class Element extends StatelessWidget
   }
 }
 
+//background
 class Rectangle extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -141,6 +150,7 @@ class Rectangle extends StatelessWidget{
   }
 }
 
+//paints background
 class RectanglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

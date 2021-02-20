@@ -9,14 +9,15 @@ import 'colors.dart';
 import 'projekt.dart';
 import 'projekt_szczegoly.dart';
 
+//download list of projects
 Future<List<Projekt>> fetchProjects() async {
-  final response = await http.get("http://kod.prz.edu.pl/api/project/",headers: {'Content-Type': 'application/json'});
+  final response = await http.get("http://kod.prz.edu.pl/api/project/",headers: {'Content-Type': 'application/json'}); //should be replaced with original Api endpoint
 
 //  String test = '[{"login": "Rav-Naz","id": 32840726,"node_id": "MDQ6VXNlcjMyODQwNzI2","avatar_url": "https://avatars0.githubusercontent.com/u/32840726?v=4","gravatar_id": "","url": "https://api.github.com/users/Rav-Naz","html_url": "https://github.com/Rav-Naz","followers_url": "https://api.github.com/users/Rav-Naz/followers","following_url": "https://api.github.com/users/Rav-Naz/following{/other_user}","gists_url": "https://api.github.com/users/Rav-Naz/gists{/gist_id}","starred_url": "https://api.github.com/users/Rav-Naz/starred{/owner}{/repo}","subscriptions_url": "https://api.github.com/users/Rav-Naz/subscriptions","organizations_url": "https://api.github.com/users/Rav-Naz/orgs","repos_url": "https://api.github.com/users/Rav-Naz/repos","events_url": "https://api.github.com/users/Rav-Naz/events{/privacy}","received_events_url": "https://api.github.com/users/Rav-Naz/received_events","type": "User","site_admin": false},{"login": "Rav-Naz","id": 32840726,"node_id": "MDQ6VXNlcjMyODQwNzI2","avatar_url": "https://avatars0.githubusercontent.com/u/32840726?v=4","gravatar_id": "","url": "https://api.github.com/users/Rav-Naz","html_url": "https://github.com/Rav-Naz","followers_url": "https://api.github.com/users/Rav-Naz/followers","following_url": "https://api.github.com/users/Rav-Naz/following{/other_user}","gists_url": "https://api.github.com/users/Rav-Naz/gists{/gist_id}","starred_url": "https://api.github.com/users/Rav-Naz/starred{/owner}{/repo}","subscriptions_url": "https://api.github.com/users/Rav-Naz/subscriptions","organizations_url": "https://api.github.com/users/Rav-Naz/orgs","repos_url": "https://api.github.com/users/Rav-Naz/repos","events_url": "https://api.github.com/users/Rav-Naz/events{/privacy}","received_events_url": "https://api.github.com/users/Rav-Naz/received_events","type": "User","site_admin": false},{"login": "Rav-Naz","id": 32840726,"node_id": "MDQ6VXNlcjMyODQwNzI2","avatar_url": "https://avatars0.githubusercontent.com/u/32840726?v=4","gravatar_id": "","url": "https://api.github.com/users/Rav-Naz","html_url": "https://github.com/Rav-Naz","followers_url": "https://api.github.com/users/Rav-Naz/followers","following_url": "https://api.github.com/users/Rav-Naz/following{/other_user}","gists_url": "https://api.github.com/users/Rav-Naz/gists{/gist_id}","starred_url": "https://api.github.com/users/Rav-Naz/starred{/owner}{/repo}","subscriptions_url": "https://api.github.com/users/Rav-Naz/subscriptions","organizations_url": "https://api.github.com/users/Rav-Naz/orgs","repos_url": "https://api.github.com/users/Rav-Naz/repos","events_url": "https://api.github.com/users/Rav-Naz/events{/privacy}","received_events_url": "https://api.github.com/users/Rav-Naz/received_events","type": "User","site_admin": false},{"login": "Rav-Naz","id": 32840726,"node_id": "MDQ6VXNlcjMyODQwNzI2","avatar_url": "https://avatars0.githubusercontent.com/u/32840726?v=4","gravatar_id": "","url": "https://api.github.com/users/Rav-Naz","html_url": "https://github.com/Rav-Naz","followers_url": "https://api.github.com/users/Rav-Naz/followers","following_url": "https://api.github.com/users/Rav-Naz/following{/other_user}","gists_url": "https://api.github.com/users/Rav-Naz/gists{/gist_id}","starred_url": "https://api.github.com/users/Rav-Naz/starred{/owner}{/repo}","subscriptions_url": "https://api.github.com/users/Rav-Naz/subscriptions","organizations_url": "https://api.github.com/users/Rav-Naz/orgs","repos_url": "https://api.github.com/users/Rav-Naz/repos","events_url": "https://api.github.com/users/Rav-Naz/events{/privacy}","received_events_url": "https://api.github.com/users/Rav-Naz/received_events","type": "User","site_admin": false},{"login": "Rav-Naz","id": 32840726,"node_id": "MDQ6VXNlcjMyODQwNzI2","avatar_url": "https://avatars0.githubusercontent.com/u/32840726?v=4","gravatar_id": "","url": "https://api.github.com/users/Rav-Naz","html_url": "https://github.com/Rav-Naz","followers_url": "https://api.github.com/users/Rav-Naz/followers","following_url": "https://api.github.com/users/Rav-Naz/following{/other_user}","gists_url": "https://api.github.com/users/Rav-Naz/gists{/gist_id}","starred_url": "https://api.github.com/users/Rav-Naz/starred{/owner}{/repo}","subscriptions_url": "https://api.github.com/users/Rav-Naz/subscriptions","organizations_url": "https://api.github.com/users/Rav-Naz/orgs","repos_url": "https://api.github.com/users/Rav-Naz/repos","events_url": "https://api.github.com/users/Rav-Naz/events{/privacy}","received_events_url": "https://api.github.com/users/Rav-Naz/received_events","type": "User","site_admin": false},{"login": "Rav-Naz","id": 32840726,"node_id": "MDQ6VXNlcjMyODQwNzI2","avatar_url": "https://avatars0.githubusercontent.com/u/32840726?v=4","gravatar_id": "","url": "https://api.github.com/users/Rav-Naz","html_url": "https://github.com/Rav-Naz","followers_url": "https://api.github.com/users/Rav-Naz/followers","following_url": "https://api.github.com/users/Rav-Naz/following{/other_user}","gists_url": "https://api.github.com/users/Rav-Naz/gists{/gist_id}","starred_url": "https://api.github.com/users/Rav-Naz/starred{/owner}{/repo}","subscriptions_url": "https://api.github.com/users/Rav-Naz/subscriptions","organizations_url": "https://api.github.com/users/Rav-Naz/orgs","repos_url": "https://api.github.com/users/Rav-Naz/repos","events_url": "https://api.github.com/users/Rav-Naz/events{/privacy}","received_events_url": "https://api.github.com/users/Rav-Naz/received_events","type": "User","site_admin": false},{"login": "Rav-Naz","id": 32840726,"node_id": "MDQ6VXNlcjMyODQwNzI2","avatar_url": "https://avatars0.githubusercontent.com/u/32840726?v=4","gravatar_id": "","url": "https://api.github.com/users/Rav-Naz","html_url": "https://github.com/Rav-Naz","followers_url": "https://api.github.com/users/Rav-Naz/followers","following_url": "https://api.github.com/users/Rav-Naz/following{/other_user}","gists_url": "https://api.github.com/users/Rav-Naz/gists{/gist_id}","starred_url": "https://api.github.com/users/Rav-Naz/starred{/owner}{/repo}","subscriptions_url": "https://api.github.com/users/Rav-Naz/subscriptions","organizations_url": "https://api.github.com/users/Rav-Naz/orgs","repos_url": "https://api.github.com/users/Rav-Naz/repos","events_url": "https://api.github.com/users/Rav-Naz/events{/privacy}","received_events_url": "https://api.github.com/users/Rav-Naz/received_events","type": "User","site_admin": false},{"login": "Rav-Naz","id": 32840726,"node_id": "MDQ6VXNlcjMyODQwNzI2","avatar_url": "https://avatars0.githubusercontent.com/u/32840726?v=4","gravatar_id": "","url": "https://api.github.com/users/Rav-Naz","html_url": "https://github.com/Rav-Naz","followers_url": "https://api.github.com/users/Rav-Naz/followers","following_url": "https://api.github.com/users/Rav-Naz/following{/other_user}","gists_url": "https://api.github.com/users/Rav-Naz/gists{/gist_id}","starred_url": "https://api.github.com/users/Rav-Naz/starred{/owner}{/repo}","subscriptions_url": "https://api.github.com/users/Rav-Naz/subscriptions","organizations_url": "https://api.github.com/users/Rav-Naz/orgs","repos_url": "https://api.github.com/users/Rav-Naz/repos","events_url": "https://api.github.com/users/Rav-Naz/events{/privacy}","received_events_url": "https://api.github.com/users/Rav-Naz/received_events","type": "User","site_admin": false}]';
 
   if(response.statusCode == 200){
     var projectObjJson = json.decode(utf8.decode(response.bodyBytes)) as List;
-    List<Projekt> projectList = projectObjJson.map((memberJson) => Projekt.fromJson(memberJson)).toList();
+    List<Projekt> projectList = projectObjJson.map((memberJson) => Projekt.fromJson(memberJson)).toList(); //create list of projects form JSON
     return projectList;
   } else{
     throw Exception("Nie udało się pobrać");
@@ -41,12 +42,14 @@ class _SekcjeIProjektyPageState extends State<SekcjeIProjektyPage>{
       backgroundColor: backgroundBlack,
       body: Stack(
         children: <Widget>[
-          Rectangle(),
+          Rectangle(), //background
           Column(
             children: [
+              //back bar
               Row(
                 children: <Widget>[
                   GestureDetector(
+                  //back to project list
                     onTap: ()
                     {
                       Navigator.pop(context);
@@ -63,6 +66,7 @@ class _SekcjeIProjektyPageState extends State<SekcjeIProjektyPage>{
                   future: project,
                   builder: (context, snapshot) {
                     if(snapshot.hasData){
+                      //if projects are loaded
                       var list = snapshot.data;
                       list.sort((a,b) => a.section.id.compareTo(b.section.id));
 
@@ -70,6 +74,7 @@ class _SekcjeIProjektyPageState extends State<SekcjeIProjektyPage>{
                         return Container(
                               padding: EdgeInsets.only(bottom: 5, top: 5, right: 5),
                               child: GestureDetector(
+                                //navigate to project details
                                 onTap: () {
                                   Navigator.push(
                                       context,
@@ -77,6 +82,7 @@ class _SekcjeIProjektyPageState extends State<SekcjeIProjektyPage>{
                                 },
                                 child: Row(
                                   children: <Widget>[
+                                    //project title
                                     Expanded(
                                       flex: 8,
                                       child: Align(
@@ -88,6 +94,7 @@ class _SekcjeIProjektyPageState extends State<SekcjeIProjektyPage>{
                                             )),
                                       ),
                                     ),
+                                    //navigation button
                                     Expanded(
                                       flex: 2,
                                       child: Align(
@@ -106,6 +113,7 @@ class _SekcjeIProjektyPageState extends State<SekcjeIProjektyPage>{
                         );
                       }).toList();
 
+                      //projects divided into sections
                       printable.insert(list.indexOf(list.firstWhere((el) => el.section.id == 1)), SectionName(1));
                       printable.insert(list.indexOf(list.firstWhere((el) => el.section.id == 2))+1, SectionName(2));
                       printable.insert(list.indexOf(list.firstWhere((el) => el.section.id == 3))+2, SectionName(3));
@@ -126,6 +134,7 @@ class _SekcjeIProjektyPageState extends State<SekcjeIProjektyPage>{
                     }
 
                     return Center(
+                      //if projects are loading
                       child: CircularProgressIndicator(
                       ),
                     );
@@ -155,6 +164,7 @@ class SectionName extends StatelessWidget
             flex: 8,
             child: Align(
               alignment: Alignment.centerLeft,
+              //section name
               child:  Text(
                   sectionId == 1 ? 'Sekcja Aplikacji Desktopowych Mobilnych i Webowych' :
                   sectionId == 2 ? 'Sekcja Game-Dev' :
@@ -169,6 +179,7 @@ class SectionName extends StatelessWidget
                   )),
             ),
           ),
+          //icon
           Expanded(
             flex: 2,
             child: Align(
@@ -183,6 +194,7 @@ class SectionName extends StatelessWidget
           ),
         ],
       ),
+      //bottom border
       decoration: BoxDecoration(
           border: Border(
               bottom: BorderSide(width: 2, color:
@@ -195,6 +207,7 @@ class SectionName extends StatelessWidget
   }
 }
 
+//background
 class Rectangle extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -205,6 +218,7 @@ class Rectangle extends StatelessWidget{
   }
 }
 
+//paints background
 class RectanglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

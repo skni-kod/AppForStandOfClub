@@ -27,16 +27,18 @@ class _ProjektPageState extends State<ProjektPage>{
       backgroundColor: backgroundBlack,
       body: Stack(
         children: <Widget>[
-          Rectangle(),
+          Rectangle(), //background
           Column(
             children: <Widget>[
+              //back bar
               Row(
                 children: <Widget>[
                   GestureDetector(
-                    onTap: ()
+                    onTap: () //back to project list
                     {
                       Navigator.pop(context);
                     },
+                    //back button
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
                       child: Icon(Icons.arrow_back, size: 50, color: Colors.white,),
@@ -52,11 +54,13 @@ class _ProjektPageState extends State<ProjektPage>{
                         padding: EdgeInsets.all(10),
                         child: Column(
                             children: [
+                              //project title
                               Text("${this.projekt.title}", style: GoogleFonts.alegreyaSansSC(
                                   fontSize: 22,
                                   textStyle: TextStyle(color: Colors.white),
                                   fontWeight: FontWeight.bold
                               )),
+                              //project description
                               MarkdownBody(
                                 data: this.projekt.text,styleSheet: MarkdownStyleSheet(
                                 p: GoogleFonts.alegreyaSansSC(
@@ -68,7 +72,7 @@ class _ProjektPageState extends State<ProjektPage>{
                                   textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                                 ),
                                 listBullet: TextStyle(
-                                  color:
+                                  color: //specify color
                                   this.projekt.section.id == 1 ? green :
                                   this.projekt.section.id == 2 ? magenta :
                                   blue,
@@ -88,6 +92,7 @@ class _ProjektPageState extends State<ProjektPage>{
   }
 }
 
+//background
 class Rectangle extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -98,6 +103,7 @@ class Rectangle extends StatelessWidget{
   }
 }
 
+//paints background
 class RectanglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

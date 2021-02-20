@@ -7,6 +7,7 @@ class Section {
 
   Section({this.id, this.name, this.description, this.isVisible, this.icon});
 
+  //create Section object from JSON object
   factory Section.fromJson(Map<String, dynamic> json){
     return Section(
       id: json['id'], //? json['login'] : null,

@@ -11,6 +11,7 @@ class MemberGithub {
 
   MemberGithub({this.login, this.avatar_url, this.url, this.name, this.company, this.blog, this.location, this.email, this.bio});
 
+  //create MemberGithub object from JSON object
   factory MemberGithub.fromJson(Map<String, dynamic> json){
     return MemberGithub(
       login: json['login'], //? json['login'] : null,
@@ -35,6 +36,7 @@ class MemberApi {
 
   MemberApi({this.id, this.user, this.description, this.avatar, this.profile_links});
 
+  //create MemberApi object from JSON object
   factory MemberApi.fromJson(Map<String, dynamic> json){
     return MemberApi(
         id: json['id'], //? json['login'] : null,
@@ -57,6 +59,7 @@ class User{
 
   User({this.id, this.username, this.email, this.groups, this.profile, this.first_name, this.last_name});
 
+  //create User object from JSON object
   factory User.fromJson(Map<String, dynamic> json){
     return User(
         id: json['id'], //? json['login'] : null,
